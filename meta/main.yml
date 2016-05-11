@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: Dmitry K.
+  description: Ansible role for configuring vnstat.
+  min_ansible_version: 1.6
+  license: MIT
+  platforms:
+  - name: Debian
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+
+  galaxy_tags:
+    - monitoring
+    - system
+dependencies: []

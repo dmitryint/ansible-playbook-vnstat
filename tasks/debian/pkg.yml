@@ -1,0 +1,50 @@
+---
+- name: install dependencies
+  apt:
+    pkg: "{{ item }}"
+    update_cache: yes
+    cache_valid_time: 86400
+    state: present
+  with_items:
+    - gcc
+    - make
+- name: download vnstat (ansible 2.x)
+  get_url:
+    url: "{{ vnstat_download_url }}"
+    dest: /usr/local/src/vnstat-{{ vnstat_version }}.tar.gz
+
+- name: extract vnstat tarball
+  unarchive:
+    src: /usr/local/src/vnstat-{{ vnstat_version }}.tar.gz
+    dest: /usr/local/src
+    creates: /usr/local/src/vnstat-{{ vnstat_version }}/Makefile.am
+    copy: no
+
+- name: configure vnstat
+  command: ./configure --sysconfdir=/etc
+  args:
+    chdir: /usr/local/src/vnstat-{{ vnstat_version }}
+    creates: /usr/local/src/vnstat-{{ vnstat_version }}/Makefile
+
+- name: compile vnstat
+  command: make
+  args:
+    chdir: /usr/local/src/vnstat-{{ vnstat_version }}
+    creates: /usr/local/src/vnstat-{{ vnstat_version }}/vnstatd
+
+- name: install vnstat
+  command: make install
+  args:
+    chdir: /usr/local/src/vnstat-{{ vnstat_version }}
+    creates: /usr/local/sbin/vnstatd
+
+- name: vnstat init script
+  template:
+    src: vnstat-init.j2
+    dest: /etc/init.d/vnstat
+    owner: root
+    group: root
+    mode: 0755
+
+- name: update rc.d
+  command: update-rc.d vnstat defaults

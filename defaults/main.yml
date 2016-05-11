@@ -1,0 +1,4 @@
+vnstat_version: 1.15
+vnstat_download_url: http://humdi.net/vnstat/vnstat-{{ vnstat_version }}.tar.gz
+
+vnstat_interface: '{{ ansible_default_ipv4.interface }}'
