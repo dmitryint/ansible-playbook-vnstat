@@ -4,5 +4,5 @@
   notify: restart vnstat
 
 - name: Ininitalize vnstat
-  command: vnstat -u -i {{ interface }}
+  command: vnstat -u -i {{ vnstat_interface }}
 
