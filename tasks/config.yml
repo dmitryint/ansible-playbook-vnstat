@@ -1,4 +1,8 @@
 ---
+- user: name=vnstat comment="vnstat" group=vnstat createhome=no system=yes shell=/bin/false home=/var/lib/vnstat
+
+- file: path=/var/lib/vnstat state=directory mode=0755 owner=vnstat group=vnstat
+
 - name: Set up vnstat config file
   template: src=templates/vnstat.conf.j2 dest=/etc/vnstat.conf mode=0755 owner=root group=root
   notify: restart vnstat
