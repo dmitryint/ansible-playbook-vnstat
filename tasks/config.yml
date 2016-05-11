@@ -1,6 +1,6 @@
 ---
 - name: Set up vnstat config file
-  template: src=templates/vnstat.conf.in dest=/etc/vnstat.conf mode=0755 owner=root group=root
+  template: src=templates/vnstat.conf.j2 dest=/etc/vnstat.conf mode=0755 owner=root group=root
   notify: restart vnstat
 
 - name: Ininitalize vnstat
