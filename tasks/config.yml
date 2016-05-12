@@ -8,6 +8,10 @@
   template: src=templates/vnstat.conf.j2 dest=/etc/vnstat.conf mode=0755 owner=root group=root
   notify: restart vnstat
 
+- stat: path=/var/lib/vnstat/{{ vnstat_interface }}
+  register: vnstat_initialized
+
 - name: Ininitalize vnstat
   command: sudo -u vnstat vnstat -u -i {{ vnstat_interface }}
   creates: /var/lib/vnstat/{{ vnstat_interface }}
+  when: vnstat_initialized.stat.exists == False
