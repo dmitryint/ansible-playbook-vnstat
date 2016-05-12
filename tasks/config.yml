@@ -13,5 +13,4 @@
 
 - name: Ininitalize vnstat
   command: sudo -u vnstat vnstat -u -i {{ vnstat_interface }}
-  creates: /var/lib/vnstat/{{ vnstat_interface }}
   when: vnstat_initialized.stat.exists == False
