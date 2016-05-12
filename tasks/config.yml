@@ -8,6 +8,6 @@
   template: src=templates/vnstat.conf.j2 dest=/etc/vnstat.conf mode=0755 owner=root group=root
   notify: restart vnstat
 
-# - name: Ininitalize vnstat
-#  command: vnstat -u -i {{ vnstat_interface }}
-
+- name: Ininitalize vnstat
+  command: sudo -u vnstat vnstat -u -i {{ vnstat_interface }}
+  creates: /var/lib/vnstat/{{ vnstat_interface }}
