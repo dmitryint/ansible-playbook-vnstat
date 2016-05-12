@@ -8,6 +8,7 @@
   with_items:
     - gcc
     - make
+    - sudo
 - name: download vnstat (ansible 2.x)
   get_url:
     url: "{{ vnstat_download_url }}"
